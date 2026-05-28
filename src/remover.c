@@ -36,7 +36,7 @@ void removerContato(Contato contatos[], int *total) {
                 }
                 
                 (*total)--; // Diminui o contador geral na memoria RAM
-                printf("Contato removido com sucesso!\n");
+                printf("\nContato removido com sucesso!\n");
                 
                 // Salvar backup logo apos a exclusao (Funcao do modulo arquivo.h)
                 sobrescreverArquivo(contatos, *total); 

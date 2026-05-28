@@ -22,36 +22,46 @@ int main() {
     total = carregarContatos(contatos);
 
     do {
-
-        limpar_tela();
+        
+        
 
         exibir_menu();
 
         printf("\nEscolha uma opcao: ");
         scanf("%d", &opcao);
 
-        getchar();
+        
 
         switch(opcao) {
 
             case 1:
                 cadastrarContato(contatos, &total);
+                pausar();
+                limpar_tela();
                 break;
 
             case 2:
                 listarContato();
+                 pausar();
+                 limpar_tela();
                 break;
 
             case 3:
                 buscarContato();
+                 pausar();
+                 limpar_tela();
                 break;
 
             case 4:
                 editarContato(contatos, total);
+                 pausar();
+                 limpar_tela();
                 break;
 
             case 5:
                 removerContato(contatos, &total);
+                 pausar();
+                 limpar_tela();
                 break;
 
             case 6:
@@ -109,7 +119,13 @@ void limpar_tela() {
     #endif
 }
 
+
 void pausar() {
+
+    int c;
+
+    // limpa buffer do teclado
+    while ((c = getchar()) != '\n' && c != EOF);
 
     printf("\nPressione ENTER para continuar...");
     getchar();

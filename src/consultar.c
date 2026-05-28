@@ -16,18 +16,26 @@ void exibirContato(Contato contato) {
 }
 
 /* ── listarContatos ──────────────────────────────────────── */
-void listarContato(Contato contatos[], int total) {
+void listarContato() {
 
-    if (total == 0) {
+    Contato contatos[MAX_CONTATOS];
+
+    int total = carregarContatos(contatos);
+
+    if(total == 0) {
+
         printf("Nenhum contato cadastrado.\n");
         return;
     }
 
-    printf("\n--- LISTA DE CONTATOS ---\n");
-    for (int i = 0; i < total; i++)
-        exibirContato(contatos[i]);
+    printf("\n===== LISTA DE CONTATOS =====\n");
 
-    printf("\nTotal: %d contato(s).\n", total);
+    for(int i = 0; i < total; i++) {
+
+        exibirContato(contatos[i]);
+    }
+
+    printf("\nTotal de contatos: %d\n", total);
 }
 
 /* ── buscarContato ───────────────────────────────────────── */
