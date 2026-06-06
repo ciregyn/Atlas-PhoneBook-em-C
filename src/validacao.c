@@ -6,52 +6,25 @@
 
 // VALIDAR CPF
 int validarCPF(char cpf[]) {
-    char digits[12];
+    char aux[12];
     int j = 0;
 
-    // Aceita com ou sem formatação
+    // Extrai apenas os números
     for (int i = 0; cpf[i] != '\0'; i++) {
         if (isdigit(cpf[i])) {
-            digits[j++] = cpf[i];
+            aux[j++] = cpf[i];
         }
     }
-    digits[j] = '\0';
+    aux[j] = '\0';
 
-    // Precisa ter exatamente 11 dígitos
+    // Garante que possui 11 dígitos
     if (j != 11) return 0;
 
-    // Rejeita CPFs com todos dígitos iguais (ex: 111.111.111-11)
-    int todos_iguais = 1;
-    for (int i = 1; i < 11; i++) {
-        if (digits[i] != digits[0]) {
-            todos_iguais = 0;
-            break;
-        }
-    }
-    if (todos_iguais) return 0;
-
-    // Calcula 1º dígito verificador
-    int soma = 0;
-    for (int i = 0; i < 9; i++) {
-        soma += (digits[i] - '0') * (10 - i);
-    }
-    int resto = soma % 11;
-    int d1 = (resto < 2) ? 0 : 11 - resto;
-    if (d1 != (digits[9] - '0')) return 0;
-
-    // Calcula 2º dígito verificador
-    soma = 0;
-    for (int i = 0; i < 10; i++) {
-        soma += (digits[i] - '0') * (11 - i);
-    }
-    resto = soma % 11;
-    int d2 = (resto < 2) ? 0 : 11 - resto;
-    if (d2 != (digits[10] - '0')) return 0;
-    //Ex: CPF: 529.982.247-25
-    //9 dígitos base → cálculo → 1º verificador = 2 
-    //10 dígitos (base + 1º) → cálculo → 2º verificador = 5 
-    //CPF VÁLIDO!
-    
+    sprintf(cpf, "%c%c%c.%c%c%c.%c%c%c-%c%c",
+            aux[0], aux[1], aux[2],
+            aux[3], aux[4], aux[5],
+            aux[6], aux[7], aux[8],
+            aux[9], aux[10]);
     return 1;
 }
 
@@ -79,15 +52,38 @@ int validarEmail(char email[]) {
 
 // VALIDAR TELEFONE
 int validarTelefone(char telefone[]) {
-    // Formato: (11)99999-0000 = 14 caracteres
-    if (strlen(telefone) != 14) return 0;
-    if (telefone[0] != '(' || telefone[3] != ')' ||
-        telefone[9] != '-') return 0;
-    for (int i = 0; i < 14; i++) {
-        if (i == 0 || i == 3 || i == 9) continue;
-        if (!isdigit(telefone[i])) return 0;
+  char aux[12];
+    int j = 0;
+
+    // Extrai apenas os números
+    for (int i = 0; telefone[i] != '\0'; i++) {
+        if (isdigit(telefone[i])) {
+            aux[j++] = telefone[i];
+        }
     }
-    return 1;
+    aux[j] = '\0';
+
+       // Telefone inválido
+    if (j != 10 && j != 11) {
+        return 0;
+    }
+
+
+    // Celular: (62) 99999-9999
+    if (j == 11) {
+        sprintf(telefone, "(%c%c) %c%c%c%c%c-%c%c%c%c",
+                aux[0], aux[1],
+                aux[2], aux[3], aux[4], aux[5], aux[6],
+                aux[7], aux[8], aux[9], aux[10]);
+    }
+
+    // Fixo: (62) 3333-3333
+    else if (j == 10) {
+        sprintf(telefone, "(%c%c) %c%c%c%c-%c%c%c%c",
+                aux[0], aux[1],
+                aux[2], aux[3], aux[4], aux[5],
+                aux[6], aux[7], aux[8], aux[9]);
+    }
 }
 
 // CONTATO EXISTE (CPF)

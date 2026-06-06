@@ -20,6 +20,8 @@ void listarContato();
 void buscarContato();
 void editarContato(Contato contatos[], int total);
 void removerContato(Contato contatos[], int *total);
+int gerar_novo_id(Contato contatos[], int total);
+
 
 /* ============================
    FUNÇÕES AUXILIARES

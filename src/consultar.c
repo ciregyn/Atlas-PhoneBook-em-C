@@ -6,23 +6,26 @@
 #include "../include/operacoes.h"
 
 /* ── exibirContato ───────────────────────────────────────── */
-void exibirContato(Contato contato) {
-    printf("\n  ID       : %d\n",  contato.id);
-    printf("  Nome     : %s\n",   contato.nome);
-    printf("  CPF      : %s\n",   contato.cpf);
-    printf("  Idade    : %d\n",   contato.idade);
-    printf("  Email    : %s\n",   contato.email);
-    printf("  Telefone : %s\n",   contato.telefone);
+void exibirContato(Contato contato)
+{
+    printf("\n  ID       : %d\n", contato.id);
+    printf("  Nome     : %s\n", contato.nome);
+    printf("  CPF      : %s\n", contato.cpf);
+    printf("  Idade    : %d\n", contato.idade);
+    printf("  Email    : %s\n", contato.email);
+    printf("  Telefone : %s\n", contato.telefone);
 }
 
 /* ── listarContatos ──────────────────────────────────────── */
-void listarContato() {
+void listarContato()
+{
 
     Contato contatos[MAX_CONTATOS];
 
     int total = carregarContatos(contatos);
 
-    if(total == 0) {
+    if (total == 0)
+    {
 
         printf("Nenhum contato cadastrado.\n");
         return;
@@ -30,7 +33,8 @@ void listarContato() {
 
     printf("\n===== LISTA DE CONTATOS =====\n");
 
-    for(int i = 0; i < total; i++) {
+    for (int i = 0; i < total; i++)
+    {
 
         exibirContato(contatos[i]);
     }
@@ -39,10 +43,12 @@ void listarContato() {
 }
 
 /* ── buscarContato ───────────────────────────────────────── */
-void buscarContato() {
+void buscarContato()
+{
     int opcao;
 
-    while (1) {
+    while (1)
+    {
         printf("\n--- CONSULTAR CONTATO ---\n");
         printf("1 - ID\n");
         printf("2 - Nome\n");
@@ -53,7 +59,8 @@ void buscarContato() {
         Contato contatos[MAX_CONTATOS];
         int total = carregarContatos(contatos);
 
-        if (opcao == 1) {
+        if (opcao == 1)
+        {
 
             int id;
             printf("ID: ");
@@ -61,8 +68,10 @@ void buscarContato() {
             getchar();
 
             int encontrado = 0;
-            for (int i = 0; i < total; i++) {
-                if (contatos[i].id == id) {
+            for (int i = 0; i < total; i++)
+            {
+                if (contatos[i].id == id)
+                {
                     exibirContato(contatos[i]);
                     encontrado = 1;
                     break;
@@ -70,8 +79,9 @@ void buscarContato() {
             }
             if (!encontrado)
                 printf("Contato nao encontrado.\n");
-
-        } else if (opcao == 2) {
+        }
+        else if (opcao == 2)
+        {
 
             char nome[MAX_NOME];
             printf("Nome: ");
@@ -79,16 +89,19 @@ void buscarContato() {
             nome[strcspn(nome, "\n")] = '\0';
 
             int encontrado = 0;
-            for (int i = 0; i < total; i++) {
-                if (strstr(contatos[i].nome, nome) != NULL) {
+            for (int i = 0; i < total; i++)
+            {
+                if (strstr(contatos[i].nome, nome) != NULL)
+                {
                     exibirContato(contatos[i]);
                     encontrado = 1;
                 }
             }
             if (!encontrado)
                 printf("Contato nao encontrado.\n");
-
-        } else {
+        }
+        else
+        {
             printf("Opcao invalida.\n");
         }
 
@@ -103,4 +116,17 @@ void buscarContato() {
         if (pos != 1)
             break;
     }
+}
+
+int gerar_novo_id(Contato contatos[], int total) {
+    
+    int maior_id = 0;
+    for (int i = 0; i < total; i++)
+    {
+        if (contatos[i].id > maior_id)
+        {
+            maior_id = contatos[i].id;
+        }
+    }
+    return maior_id + 1;
 }

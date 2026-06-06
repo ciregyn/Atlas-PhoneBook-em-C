@@ -3,7 +3,7 @@
 #include "../include/contato.h"
 #include "../include/arquivo.h"
 #include "../include/validacao.h"
-
+#include "../include/operacoes.h"
 
 /*
 Função responsável por:
@@ -18,16 +18,17 @@ void cadastrarContato(Contato contatos[], int *total)
 
     printf("\n===== CADASTRO DE CONTATO =====\n");
 
-    printf("Digite o ID: ");
-    scanf("%d", &contato.id);
-
+    // Gera ID automatico
+    contato.id = gerar_novo_id(contatos, *total);
+    printf("ID gerado automaticamente: %d\n", contato.id);
+    
     printf("Digite o nome: ");
     scanf("%s", contato.nome);
 
     printf("Digite o CPF: ");
     scanf("%s", contato.cpf);
 
-    while(!validarCPF(contato.cpf))
+    while (!validarCPF(contato.cpf))
     {
         printf("CPF invalido. Digite novamente: ");
         scanf("%s", contato.cpf);
@@ -39,7 +40,7 @@ void cadastrarContato(Contato contatos[], int *total)
     printf("Digite o email: ");
     scanf("%s", contato.email);
 
-    while(!validarEmail(contato.email))
+    while (!validarEmail(contato.email))
     {
         printf("Email invalido. Digite novamente: ");
         scanf("%s", contato.email);
@@ -48,7 +49,7 @@ void cadastrarContato(Contato contatos[], int *total)
     printf("Digite o telefone: ");
     scanf("%s", contato.telefone);
 
-    while(!validarTelefone(contato.telefone))
+    while (!validarTelefone(contato.telefone))
     {
         printf("Telefone invalido. Digite novamente: ");
         scanf("%s", contato.telefone);
